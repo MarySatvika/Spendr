@@ -1,0 +1,193 @@
+/* Basic Reset and Variables */
+:root {
+    --primary-color: #4CAF50;
+    --secondary-color: #388E3C;
+    --accent-color: #FFC107;
+    --background-color: #f4f7f6;
+    --text-color: #333;
+    --card-background: #ffffff;
+    --border-radius: 8px;
+    --box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    background-color: var(--background-color);
+    color: var(--text-color);
+}
+
+/* Header Styles */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background-color: var(--primary-color);
+    color: white;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.logo {
+    font-size: 1.8rem;
+    font-weight: bold;
+}
+
+.nav a {
+    color: white;
+    text-decoration: none;
+    margin-left: 2rem;
+    font-size: 1.1rem;
+    transition: color 0.3s;
+}
+
+.nav a:hover {
+    color: var(--accent-color);
+}
+
+/* Main Container and Layout */
+.container {
+    display: flex;
+    padding: 1.5rem;
+    gap: 1.5rem;
+}
+
+.sidebar {
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+/* Card Styles */
+.goal-card, .add-transaction, .chart-card, .transactions-history {
+    background-color: var(--card-background);
+    padding: 1.5rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+}
+
+h3 {
+    margin-bottom: 1rem;
+    color: var(--secondary-color);
+}
+
+/* Goal Card Specifics */
+.goal-status {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+.progress-bar {
+    background-color: #e0e0e0;
+    border-radius: 5px;
+    height: 12px;
+    overflow: hidden;
+}
+
+.progress {
+    height: 100%;
+    background-color: var(--primary-color);
+    transition: width 0.4s ease-in-out;
+}
+
+.warning-message {
+    margin-top: 1rem;
+    padding: 0.5rem;
+    border-radius: 5px;
+    background-color: #E8F5E9;
+    color: #388E3C;
+    border: 1px solid #C8E6C9;
+}
+
+/* Add Transaction Form */
+.add-transaction form {
+    display: flex;
+    flex-direction: column;
+}
+
+.add-transaction label {
+    margin-top: 1rem;
+    font-weight: bold;
+}
+
+.add-transaction input, .add-transaction select {
+    padding: 0.75rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-top: 0.5rem;
+}
+
+.add-transaction button {
+    margin-top: 1.5rem;
+    padding: 0.75rem;
+    background-color: var(--secondary-color);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.add-transaction button:hover {
+    background-color: #2e7d32;
+}
+
+/* Chart and Transactions Layout */
+.chart-container {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.chart-card {
+    flex: 1;
+}
+
+.placeholder-chart {
+    height: 250px;
+    background-color: #eceff1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #90a4ae;
+    font-style: italic;
+    border-radius: 8px;
+}
+
+/* Transactions Table */
+.transactions-history table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+}
+
+.transactions-history th, .transactions-history td {
+    text-align: left;
+    padding: 1rem;
+    border-bottom: 1px solid #eee;
+}
+
+.transactions-history th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+.expense {
+    color: #D32F2F; /* A red color for expenses */
+    font-weight: bold;
+}

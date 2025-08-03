@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spendr - Reports</title>
+    <style>
+        /* =========================================
+           Global Styles & Effects
+           ========================================= */
+        :root {
+            --primary-color: #4CAF50;
+            --secondary-color: #388E3C;
+            --accent-color: #FFC107;
+            --background-start: #e9ecef;
+            --background-end: #ced4da;
+            --text-color: #333;
+            --card-background: #ffffff;
+            --border-radius: 12px;
+            --box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+            --transition-speed: 0.3s;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background: linear-gradient(135deg, var(--background-start), var(--background-end));
+            min-height: 100vh;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+        
+        main, header {
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+
+        /* =========================================
+           Header and Navigation
+           ========================================= */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 2.5rem;
+            background-color: var(--primary-color);
+            color: white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+
+        .nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 2rem;
+            font-size: 1rem;
+            transition: color var(--transition-speed) ease;
+        }
+
+        .nav a:hover {
+            color: var(--accent-color);
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+        }
+        
+        .nav a.active {
+            font-weight: bold;
+            color: var(--accent-color);
+        }
+
+        /* =========================================
+           Main Content and Reports Layout
+           ========================================= */
+        .container {
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .page-header h2 {
+            color: var(--secondary-color);
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .card {
+            background-color: var(--card-background);
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            transition: transform var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(0,0,0,0.15);
+        }
+
+        h3 {
+            margin-bottom: 1rem;
+            color: var(--secondary-color);
+            border-bottom: 2px solid #eee;
+            padding-bottom: 0.5rem;
+        }
+        
+        /* Summary Card specifics */
+        .summary-card {
+            display: flex;
+            justify-content: space-around;
+            text-align: center;
+        }
+        
+        .summary-item {
+            flex: 1;
+        }
+
+        .summary-item span {
+            display: block;
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+        
+        .summary-item p {
+            font-size: 1.1rem;
+            color: #777;
+        }
+
+        .income {
+            color: var(--primary-color);
+        }
+
+        .expenses {
+            color: #D32F2F;
+        }
+        
+        /* Chart Placeholders */
+        .chart-container {
+            display: flex;
+            gap: 2rem;
+        }
+        
+        .chart-card {
+            flex: 1;
+        }
+        
+        /* Detailed Reports Table */
+        .reports-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+
+        .reports-table thead th {
+            text-align: left;
+            padding: 1rem;
+            background-color: #f2f2f2;
+            font-weight: bold;
+            border-bottom: 2px solid #ddd;
+        }
+
+        .reports-table tbody td {
+            text-align: left;
+            padding: 1rem;
+            border-bottom: 1px solid #eee;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <div class="logo">Spendr</div>
+        <nav class="nav">
+            <a href="index.html">Home</a>
+            <a href="dashboard.html">Dashboard</a>
+            <a href="transactions.html">Transactions</a>
+            <a href="reports.html" class="active">Reports</a>
+            <a href="settings.html">Settings</a>
+        </nav>
+        
+    </header>
+
+    <main class="container">
+        <div class="page-header">
+            <h2>Financial Reports</h2>
+        </div>
+        
+        <div class="card summary-card">
+            <div class="summary-item">
+                <span class="income">₹<span id="total-income">0</span></span>
+                <p>Total Income</p>
+            </div>
+            <div class="summary-item">
+                <span class="expenses">₹<span id="total-expenses">0</span></span>
+                <p>Total Expenses</p>
+            </div>
+            <div class="summary-item">
+                <span>₹<span id="net-savings">0</span></span>
+                <p>Net Savings</p>
+            </div>
+        </div>
+        
+        <div class="chart-container">
+            <div class="card chart-card">
+                <h3>Monthly Spending Overview</h3>
+                <canvas id="monthly-spending-chart"></canvas>
+            </div>
+            <div class="card chart-card">
+                <h3>Spending by Category</h3>
+                <canvas id="category-spending-chart"></canvas>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3>Detailed Spending by Category</h3>
+            <table class="reports-table">
+                <thead>
+                    <tr>
+                        <th>Category</th>
+                        <th>Total Spent</th>
+                        <th>Transactions</th>
+                    </tr>
+                </thead>
+                <tbody id="category-report-list">
+                    </tbody>
+            </table>
+        </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+        const rupeeFormatter = new Intl.NumberFormat('en-IN', {
+            style: 'currency',
+            currency: 'INR'
+        });
+
+        // Sample data for reports
+        const allTransactions = [
+            // Sample Income
+            { date: '2025-07-28', description: 'Salary', category: 'Income', amount: 50000.00 },
+            { date: '2025-08-10', description: 'Freelance work', category: 'Income', amount: 15000.00 },
+
+            // Sample Expenses
+            { date: '2025-08-15', description: 'Groceries shopping', category: 'Groceries', amount: 1200.00 },
+            { date: '2025-08-12', description: 'Restaurant dinner', category: 'Food & Drinks', amount: 800.00 },
+            { date: '2025-08-10', description: 'Utility bill', category: 'Utilities', amount: 900.00 },
+            { date: '2025-08-08', description: 'Fuel for car', category: 'Transportation', amount: 1500.00 },
+            { date: '2025-08-05', description: 'Movie tickets', category: 'Entertainment', amount: 600.00 },
+            { date: '2025-08-03', description: 'Coffee', category: 'Food & Drinks', amount: 150.00 },
+            { date: '2025-07-30', description: 'Weekly groceries', category: 'Groceries', amount: 750.00 },
+            { date: '2025-07-29', description: 'Internet bill', category: 'Utilities', amount: 1000.00 },
+        ];
+        
+        // =========================================
+        //  1. Generate Summary Card
+        // =========================================
+        function generateSummary() {
+            const totalIncome = allTransactions
+                .filter(t => t.category === 'Income')
+                .reduce((sum, t) => sum + t.amount, 0);
+
+            const totalExpenses = allTransactions
+                .filter(t => t.category !== 'Income')
+                .reduce((sum, t) => sum + t.amount, 0);
+            
+            const netSavings = totalIncome - totalExpenses;
+
+            document.getElementById('total-income').textContent = rupeeFormatter.format(totalIncome).slice(1);
+            document.getElementById('total-expenses').textContent = rupeeFormatter.format(totalExpenses).slice(1);
+            document.getElementById('net-savings').textContent = rupeeFormatter.format(netSavings).slice(1);
+        }
+
+        // =========================================
+        //  2. Generate Monthly Spending Overview (Bar Chart)
+        // =========================================
+        function generateMonthlySpendingChart() {
+            const monthlySpending = {};
+            const expenseTransactions = allTransactions.filter(t => t.category !== 'Income');
+
+            expenseTransactions.forEach(t => {
+                const month = t.date.slice(0, 7); // 'YYYY-MM'
+                monthlySpending[month] = (monthlySpending[month] || 0) + t.amount;
+            });
+
+            const labels = Object.keys(monthlySpending);
+            const data = Object.values(monthlySpending);
+
+            const ctx = document.getElementById('monthly-spending-chart').getContext('2d');
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Total Expenses',
+                        data: data,
+                        // FIX: Changed from var(--primary-color) to a hex code
+                        backgroundColor: '#4CAF50',
+                        borderColor: '#4CAF50',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        }
+
+        // =========================================
+        //  3. Generate Spending by Category (Pie Chart)
+        // =========================================
+        function generateCategorySpendingChart() {
+            const categorySpending = {};
+            const expenseTransactions = allTransactions.filter(t => t.category !== 'Income');
+
+            expenseTransactions.forEach(t => {
+                categorySpending[t.category] = (categorySpending[t.category] || 0) + t.amount;
+            });
+
+            const labels = Object.keys(categorySpending);
+            const data = Object.values(categorySpending);
+            
+            // FIX: Defined an array of colors for the chart
+            const backgroundColors = [
+                '#4CAF50', '#FFC107', '#2196F3', '#D32F2F', '#9C27B0', '#795548', '#FF9800'
+            ];
+
+            const ctx = document.getElementById('category-spending-chart').getContext('2d');
+            new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        data: data,
+                        backgroundColor: backgroundColors,
+                        hoverOffset: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        },
+                        title: {
+                            display: false,
+                        }
+                    }
+                }
+            });
+        }
+
+        // =========================================
+        //  4. Generate Detailed Category Report
+        // =========================================
+        function generateDetailedReport() {
+            const categorySummary = {};
+            const expenseTransactions = allTransactions.filter(t => t.category !== 'Income');
+
+            expenseTransactions.forEach(t => {
+                if (!categorySummary[t.category]) {
+                    categorySummary[t.category] = { total: 0, count: 0 };
+                }
+                categorySummary[t.category].total += t.amount;
+                categorySummary[t.category].count += 1;
+            });
+            
+            const reportList = document.getElementById('category-report-list');
+            reportList.innerHTML = '';
+            
+            for (const category in categorySummary) {
+                const summary = categorySummary[category];
+                const newRow = document.createElement('tr');
+                newRow.innerHTML = `
+                    <td>${category}</td>
+                    <td>${rupeeFormatter.format(summary.total)}</td>
+                    <td>${summary.count}</td>
+                `;
+                reportList.appendChild(newRow);
+            }
+        }
+        
+        // Run all functions when the page loads
+        window.onload = function() {
+            generateSummary();
+            generateMonthlySpendingChart();
+            generateCategorySpendingChart();
+            generateDetailedReport();
+        };
+    </script>
+
+</body>
+</html>

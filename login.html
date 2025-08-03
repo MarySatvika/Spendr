@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log In - Spendr</title>
+    <style>
+        /*
+         * Global Styles & Layout
+         * - Sets a nice, soft gradient background
+         * - Centers the login form on the page
+         */
+        :root {
+            --primary-color: #4CAF50;
+            --secondary-color: #388E3C;
+            --background-start: #f0f4f8; /* Soft light blue/gray */
+            --background-end: #d9e2e9;   /* Slightly darker shade */
+            --text-color: #333;
+            --card-background: #ffffff;
+            --box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: var(--text-color);
+            margin: 0;
+            background: linear-gradient(135deg, var(--background-start), var(--background-end));
+        }
+
+        /*
+         * Login Form Container
+         * - Adds a subtle shadow and a transition effect on hover
+         */
+        .login-container {
+            width: 100%;
+            max-width: 400px;
+            padding: 2.5rem;
+            background-color: var(--card-background);
+            border-radius: 12px;
+            box-shadow: var(--box-shadow);
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+
+        .login-container:hover {
+            transform: translateY(-5px); /* Lifts the card slightly on hover */
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+
+        .login-container h2 {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: var(--secondary-color);
+            font-size: 2rem;
+        }
+
+        /*
+         * Form Input and Button Styles
+         * - Uses consistent styling for a clean look
+         * - Adds a hover effect to the button
+         */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 0.75rem;
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .login-btn:hover {
+            background-color: #2e7d32;
+            transform: translateY(-2px); /* Makes the button "press" up slightly */
+        }
+
+        .register-link {
+            text-align: center;
+            margin-top: 1.5rem;
+        }
+
+        .register-link a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        .register-link a:hover {
+            text-decoration: underline;
+            color: var(--secondary-color);
+        }
+
+        /* New style for the home link */
+        .home-link {
+            display: block;
+            text-align: center;
+            margin-bottom: 1.5rem;
+            color: var(--secondary-color);
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+        .home-link:hover {
+            text-decoration: underline;
+            color: var(--primary-color);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="login-container">
+        <a href="index.html" class="home-link">← Home</a>
+        
+        <h2>Log In to Spendr</h2>
+        <form id="login-form">
+            <div class="form-group">
+                <label for="username">Username or Email</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <button type="submit" class="login-btn">Log In</button>
+        </form>
+        <div class="register-link">
+            Don't have an account? <a href="register.html">Register here</a>
+        </div>
+    </div>
+
+    <script>
+        const loginForm = document.getElementById('login-form');
+        
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            if (username && password) {
+                alert('Login successful! Redirecting to dashboard...');
+            } else {
+                alert('Please enter your username and password.');
+            }
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - Spendr</title>
+    <style>
+        /*
+         * Global Styles & Layout
+         * - Sets a nice, soft gradient background
+         * - Centers the register form on the page
+         */
+        :root {
+            --primary-color: #4CAF50;
+            --secondary-color: #388E3C;
+            --background-start: #f0f4f8; /* Soft light blue/gray */
+            --background-end: #d9e2e9;   /* Slightly darker shade */
+            --text-color: #333;
+            --card-background: #ffffff;
+            --box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: var(--text-color);
+            margin: 0;
+            background: linear-gradient(135deg, var(--background-start), var(--background-end));
+        }
+
+        /*
+         * Registration Form Container
+         * - Adds a subtle shadow and a transition effect on hover
+         */
+        .register-container {
+            width: 100%;
+            max-width: 450px; /* Slightly wider to accommodate new fields */
+            padding: 2.5rem;
+            background-color: var(--card-background);
+            border-radius: 12px;
+            box-shadow: var(--box-shadow);
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+
+        .register-container:hover {
+            transform: translateY(-5px); /* Lifts the card slightly on hover */
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+
+        .register-container h2 {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: var(--secondary-color);
+            font-size: 2rem;
+        }
+        
+        .home-link {
+            display: block;
+            text-align: center;
+            margin-bottom: 1.5rem;
+            color: var(--secondary-color);
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+        .home-link:hover {
+            text-decoration: underline;
+            color: var(--primary-color);
+        }
+
+        /*
+         * Form Input and Button Styles
+         * - Uses consistent styling for a clean look
+         * - Adds a hover effect to the button
+         */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
+        }
+
+        .register-btn {
+            width: 100%;
+            padding: 0.75rem;
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .register-btn:hover {
+            background-color: #2e7d32;
+            transform: translateY(-2px); /* Makes the button "press" up slightly */
+        }
+
+        .login-link {
+            text-align: center;
+            margin-top: 1.5rem;
+        }
+
+        .login-link a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        .login-link a:hover {
+            text-decoration: underline;
+            color: var(--secondary-color);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="register-container">
+        <a href="index.html" class="home-link">← Home</a>
+        
+        <h2>Register for Spendr</h2>
+        <form id="registration-form">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <div class="form-group">
+                <label for="confirm-password">Confirm Password</label>
+                <input type="password" id="confirm-password" name="confirm-password" required>
+            </div>
+            
+            <hr style="margin: 2rem 0; border: 0; border-top: 1px solid #ddd;">
+            
+            <button type="submit" class="register-btn">Register</button>
+        </form>
+        <div class="login-link">
+            Already have an account? <a href="login.html">Log In</a>
+        </div>
+    </div>
+
+    <script>
+        const registrationForm = document.getElementById('registration-form');
+
+        registrationForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            const username = document.getElementById('username').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirm-password').value;
+            
+            if (password !== confirmPassword) {
+                alert('Error: Passwords do not match. Please try again.');
+                return;
+            }
+
+            if (password.length < 6) {
+                alert('Error: Password must be at least 6 characters long.');
+                return;
+            }
+            alert(`Registration successful for user: ${username}! 
+                   You can now log in.`);
+            
+            registrationForm.reset();
+        });
+    </script>
+
+</body>
+</html>

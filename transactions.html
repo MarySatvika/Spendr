@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spendr - Transactions</title>
+    <style>
+        /* =========================================
+           Global Styles & Effects
+           ========================================= */
+        :root {
+            --primary-color: #4CAF50;
+            --secondary-color: #388E3C;
+            --accent-color: #FFC107;
+            --background-start: #e9ecef; /* Lighter background */
+            --background-end: #ced4da;   /* Darker background for gradient */
+            --text-color: #333;
+            --card-background: #ffffff;
+            --border-radius: 12px;
+            --box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background: linear-gradient(135deg, var(--background-start), var(--background-end));
+            min-height: 100vh;
+        }
+
+        /* =========================================
+           Header and Navigation
+           ========================================= */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 2.5rem;
+            background-color: var(--primary-color);
+            color: white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+
+        .nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 2rem;
+            font-size: 1rem;
+            transition: color 0.3s ease;
+        }
+
+        .nav a:hover {
+            color: var(--accent-color);
+        }
+        
+        /* Highlight the active page */
+        .nav a.active {
+            font-weight: bold;
+            color: var(--accent-color);
+        }
+
+        /* =========================================
+           Main Content and Transactions Table
+           ========================================= */
+        .container {
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .page-header h2 {
+            color: var(--secondary-color);
+            font-size: 2.5rem;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #2e7d32;
+        }
+
+        .card {
+            background-color: var(--card-background);
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+
+        .transactions-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+
+        .transactions-table thead th {
+            text-align: left;
+            padding: 1rem;
+            background-color: #f2f2f2;
+            font-weight: bold;
+            border-bottom: 2px solid #ddd;
+        }
+
+        .transactions-table tbody td {
+            text-align: left;
+            padding: 1rem;
+            border-bottom: 1px solid #eee;
+        }
+        
+        /* Style for expense amounts */
+        .expense {
+            color: #D32F2F;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <div class="logo">Spendr</div>
+        <nav class="nav">
+            <a href="index.html">Home</a>
+            <a href="dashboard.html">Dashboard</a>
+            <a href="transactions.html" class="active">Transactions</a>
+            <a href="reports.html" class="active">Reports</a>
+            <a href="settings.html" class="active">Settings</a>
+            
+        </nav>
+        
+    </header>
+
+    <main class="container">
+        <div class="page-header">
+            <h2>Transaction History</h2>
+            <a href="#" class="btn">Add New Transaction</a>
+        </div>
+        
+        <div class="card">
+            <table class="transactions-table">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Description</th>
+                        <th>Category</th>
+                        <th>Amount</th>
+                    </tr>
+                </thead>
+                <tbody id="transaction-list">
+                    </tbody>
+            </table>
+        </div>
+    </main>
+
+    <script>
+        // Use the Intl.NumberFormat for correct Indian Rupee formatting
+        const rupeeFormatter = new Intl.NumberFormat('en-IN', {
+            style: 'currency',
+            currency: 'INR'
+        });
+
+        // This array simulates the transaction history data you would get from a database
+        const transactionHistory = [
+            { date: '2025-08-03', description: 'Coffee with a friend', category: 'Food & Drinks', amount: 150.00 },
+            { date: '2025-08-02', description: 'Monthly utility bill', category: 'Utilities', amount: 1200.00 },
+            { date: '2025-08-01', description: 'Weekly grocery shopping', category: 'Groceries', amount: 750.50 },
+            { date: '2025-07-31', description: 'Movie tickets', category: 'Entertainment', amount: 450.00 },
+            { date: '2025-07-30', description: 'Bus fare to work', category: 'Transportation', amount: 80.00 },
+            { date: '2025-07-29', description: 'Monthly gym subscription', category: 'Fitness', amount: 500.00 },
+            { date: '2025-07-28', description: 'Dinner with family', category: 'Food & Drinks', amount: 850.00 },
+            { date: '2025-07-27', description: 'New headphones from Amazon', category: 'Shopping', amount: 2500.00 }
+        ];
+
+        // This function generates the table rows from the transactionHistory array
+        function renderTransactions() {
+            const transactionList = document.getElementById('transaction-list');
+            transactionList.innerHTML = ''; // Clear existing content
+
+            transactionHistory.forEach(transaction => {
+                const newRow = document.createElement('tr');
+                newRow.innerHTML = `
+                    <td>${transaction.date}</td>
+                    <td>${transaction.description}</td>
+                    <td>${transaction.category}</td>
+                    <td class="expense">- ${rupeeFormatter.format(transaction.amount)}</td>
+                `;
+                transactionList.appendChild(newRow);
+            });
+        }
+
+        // Call the function when the page loads to display the transactions
+        window.onload = renderTransactions;
+
+    </script>
+
+</body>
+</html>

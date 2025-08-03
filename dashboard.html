@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spendr - Dashboard</title>
+    <style>
+        /* =========================================
+           Global Styles & Effects
+           ========================================= */
+        :root {
+            --primary-color: #4CAF50;
+            --secondary-color: #388E3C;
+            --accent-color: #FFC107;
+            --background-start: #e9ecef;
+            --background-end: #ced4da;
+            --text-color: #333;
+            --card-background: #ffffff;
+            --border-radius: 12px;
+            --box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+            --transition-speed: 0.3s;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background: linear-gradient(135deg, var(--background-start), var(--background-end));
+            min-height: 100vh;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+        
+        main, header {
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+
+        /* =========================================
+           Header and Navigation
+           ========================================= */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 2.5rem;
+            background-color: var(--primary-color);
+            color: white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+
+        .nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 2rem;
+            font-size: 1rem;
+            transition: color var(--transition-speed) ease;
+        }
+
+        .nav a:hover {
+            color: var(--accent-color);
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+        }
+        
+        .nav a.active {
+            font-weight: bold;
+            color: var(--accent-color);
+        }
+
+        /* =========================================
+           Main Container and Cards
+           ========================================= */
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2rem;
+            padding: 2rem;
+        }
+        
+        .card {
+            background-color: var(--card-background);
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            transition: transform var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
+            width: 100%;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(0,0,0,0.12);
+        }
+        
+        /* New welcome card styles */
+        .welcome-card {
+            background: linear-gradient(135deg, #f0fdf4, #dcfce7);
+            border: 1px solid #d1fae5;
+            color: var(--secondary-color);
+            text-align: center;
+            padding: 2rem;
+            max-width: 1200px;
+        }
+
+        .welcome-card h2 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+
+        .welcome-card p {
+            font-size: 1.2rem;
+            color: #4b5563;
+        }
+
+
+        h3 {
+            margin-bottom: 1rem;
+            color: var(--secondary-color);
+            border-bottom: 2px solid #eee;
+            padding-bottom: 0.5rem;
+        }
+        
+        /* Layout for the two top cards */
+        .quick-actions-container {
+            display: flex;
+            gap: 2rem;
+            max-width: 1200px;
+            width: 100%;
+        }
+        
+        .quick-actions-container .card {
+            flex: 1;
+        }
+        
+        /* Layout for the transactions card below */
+        .transactions-history {
+            max-width: 1200px;
+        }
+
+        /* =========================================
+           Goal Card and Progress Bar
+           ========================================= */
+        .goal-status {
+            font-size: 1.25rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+        
+        @keyframes fillProgress {
+            from { width: 0; }
+            to { width: var(--progress-width); }
+        }
+
+        .progress-bar {
+            background-color: #e0e0e0;
+            border-radius: 5px;
+            height: 15px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress {
+            height: 100%;
+            background-color: var(--primary-color);
+            animation: fillProgress 1s ease-in-out forwards;
+            --progress-width: 0%;
+        }
+        
+        /* =========================================
+           Forms & Buttons
+           ========================================= */
+        .form {
+            display: flex;
+            flex-direction: column;
+            margin-top: 1.5rem;
+        }
+
+        .form label {
+            margin-top: 1rem;
+            font-weight: bold;
+        }
+
+        .form input, .form select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-top: 0.5rem;
+            font-size: 1rem;
+            transition: border-color var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
+        }
+        
+        .form input:focus, .form select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 5px rgba(76, 175, 80, 0.4);
+        }
+
+        .btn {
+            margin-top: 1.5rem;
+            padding: 0.75rem 1rem;
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background-color var(--transition-speed) ease, transform var(--transition-speed) ease;
+        }
+
+        .btn:hover {
+            background-color: #2e7d32;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        /* =========================================
+           Tables
+           ========================================= */
+        .transactions-history table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+
+        .transactions-history th, .transactions-history td {
+            text-align: left;
+            padding: 1rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .transactions-history th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+
+        .expense {
+            color: #D32F2F;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <div class="logo">Spendr</div>
+        <nav class="nav">
+            <a href="index.html">Home</a>
+            <a href="dashboard.html" class="active">Dashboard</a>
+            <a href="transactions.html">Transactions</a>
+            <a href="reports.html">Reports</a>
+            <a href="settings.html">Settings</a>
+        </nav>
+        
+    </header>
+
+    <main class="container">
+        <div class="card welcome-card">
+            <h2>Welcome back, User!</h2>
+            <p>Your dashboard gives you a quick overview of your financial health.</p>
+        </div>
+
+        <div class="quick-actions-container">
+            <div class="card goal-card">
+                <h3>Monthly Spending Goal</h3>
+                <p class="goal-status">
+                    Current: ₹<span id="current-spending">0.00</span> / ₹<span id="current-goal">8000.00</span>
+                </p>
+                <div class="progress-bar">
+                    <div class="progress"></div>
+                </div>
+                <div class="warning-message">Set a goal to get started!</div>
+                
+                <form id="goal-form" class="form">
+                    <label for="goal-input">Set New Goal (₹):</label>
+                    <input type="number" id="goal-input" placeholder="e.g., 10000.00" required>
+                    <button type="submit" class="btn">Set Goal</button>
+                </form>
+            </div>
+
+            <div class="card add-transaction-card">
+                <h3>Add New Transaction</h3>
+                <form id="transaction-form" class="form">
+                    <label for="amount">Amount (₹):</label>
+                    <input type="number" id="amount" placeholder="e.g., 500.00" required>
+                    
+                    <label for="description">Description:</label>
+                    <input type="text" id="description" placeholder="e.g., Coffee with a friend" required>
+                    
+                    <label for="category">Category:</label>
+                    <select id="category" required>
+                        <option value="Groceries">Groceries</option>
+                        <option value="Entertainment">Entertainment</option>
+                        <option value="Utilities">Utilities</option>
+                        <option value="Food & Drinks">Food & Drinks</option>
+                        <option value="Transportation">Transportation</option>
+                    </select>
+                    
+                    <label for="date">Date:</label>
+                    <input type="date" id="date" required>
+                    
+                    <button type="submit" class="btn">Add Expense</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="card transactions-history">
+            <h3>Recent Transactions</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Description</th>
+                        <th>Category</th>
+                        <th>Amount</th>
+                    </tr>
+                </thead>
+                <tbody id="transaction-list">
+                    </tbody>
+            </table>
+        </div>
+    </main>
+    
+    <script>
+        const rupeeFormatter = new Intl.NumberFormat('en-IN', {
+            style: 'currency',
+            currency: 'INR'
+        });
+
+        const recentTransactions = [
+            { date: '2025-08-03', description: 'Coffee with a friend', category: 'Food & Drinks', amount: 150.00 },
+            { date: '2025-08-02', description: 'Monthly utility bill', category: 'Utilities', amount: 1200.00 },
+            { date: '2025-08-01', description: 'Weekly grocery shopping', category: 'Groceries', amount: 750.50 }
+        ];
+
+        function renderRecentTransactions() {
+            const transactionList = document.getElementById('transaction-list');
+            transactionList.innerHTML = '';
+
+            recentTransactions.forEach(transaction => {
+                const newRow = document.createElement('tr');
+                newRow.innerHTML = `
+                    <td>${transaction.date}</td>
+                    <td>${transaction.description}</td>
+                    <td>${transaction.category}</td>
+                    <td class="expense">- ${rupeeFormatter.format(transaction.amount)}</td>
+                `;
+                transactionList.appendChild(newRow);
+            });
+        }
+
+        window.onload = renderRecentTransactions;
+
+    </script>
+
+</body>
+</html>
