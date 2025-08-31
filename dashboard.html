@@ -317,7 +317,17 @@
                     <button type="submit" class="btn">Add Expense</button>
                 </form>
             </div>
-        </div>
+            
+            <div class="card to-do-card">
+                <h3>Your To-Do List 📝</h3>
+                <div class="input-group">
+                    <input type="text" id="item-input" placeholder="Add a new task...">
+                    <button id="add-btn">Add Item</button>
+                </div>
+                <ul id="todo-list">
+                    </ul>
+            </div>
+            </div>
 
         <div class="card transactions-history">
             <h3>Recent Transactions</h3>
@@ -366,6 +376,49 @@
 
         window.onload = renderRecentTransactions;
 
+        // =========================================
+        // To-Do List JavaScript
+        // =========================================
+        const itemInput = document.getElementById('item-input');
+        const todoList = document.getElementById('todo-list');
+        const addButton = document.getElementById('add-btn');
+
+        function addItem() {
+            const itemText = itemInput.value.trim();
+
+            if (itemText === '') {
+                alert('Please enter some text');
+                return;
+            }
+
+            const li = document.createElement('li');
+            const span = document.createElement('span');
+            span.textContent = itemText;
+
+            const deleteBtn = document.createElement('button');
+            deleteBtn.textContent = 'Delete';
+            deleteBtn.className = 'delete-btn';
+
+            deleteBtn.addEventListener('click', function() {
+                todoList.removeChild(li);
+            });
+
+            li.appendChild(span);
+            li.appendChild(deleteBtn);
+
+            todoList.appendChild(li);
+
+            itemInput.value = '';
+            itemInput.focus();
+        }
+
+        addButton.addEventListener('click', addItem);
+
+        itemInput.addEventListener('keydown', function(event) {
+            if (event.key === 'Enter') {
+                addItem();
+            }
+        });
     </script>
 
 </body>
