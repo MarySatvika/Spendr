@@ -1,9 +1,3 @@
-/*
- * Styles for the main transaction manager component
- * and its nested elements, extracted from style.css.
- */
-
-/* Basic Card Styles */
 .goal-card,
 .add-transaction,
 .chart-card,
@@ -54,7 +48,6 @@ h3 {
     background-color: #2e7d32;
 }
 
-/* Transactions Table */
 .transactions-history table {
     width: 100%;
     border-collapse: collapse;
@@ -79,4 +72,5 @@ h3 {
 }
 .exceeded-limit {
     color: #ff0000 !important; 
+
 }
