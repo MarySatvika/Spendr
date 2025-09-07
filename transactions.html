@@ -5,15 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Spendr - Transactions</title>
     <style>
-        /* =========================================
-           Global Styles & Effects
-           ========================================= */
+
         :root {
             --primary-color: #4CAF50;
             --secondary-color: #388E3C;
             --accent-color: #FFC107;
-            --background-start: #e9ecef; /* Lighter background */
-            --background-end: #ced4da;   /* Darker background for gradient */
+            --background-start: #e9ecef; 
+            --background-end: #ced4da;   
             --text-color: #333;
             --card-background: #ffffff;
             --border-radius: 12px;
@@ -34,9 +32,6 @@
             min-height: 100vh;
         }
 
-        /* =========================================
-           Header and Navigation
-           ========================================= */
         .header {
             display: flex;
             justify-content: space-between;
@@ -70,9 +65,6 @@
             color: var(--accent-color);
         }
 
-        /* =========================================
-           Main Content and Transactions Table
-           ========================================= */
         .container {
             padding: 2rem;
             max-width: 1200px;
@@ -140,7 +132,6 @@
             border-bottom: 1px solid #eee;
         }
         
-        /* Style for expense amounts */
         .expense {
             color: #D32F2F;
             font-weight: bold;
@@ -185,28 +176,17 @@
     </main>
 
     <script>
-        // Use the Intl.NumberFormat for correct Indian Rupee formatting
         const rupeeFormatter = new Intl.NumberFormat('en-IN', {
             style: 'currency',
             currency: 'INR'
         });
 
-        // This array simulates the transaction history data you would get from a database
         const transactionHistory = [
-            { date: '2025-08-03', description: 'Coffee with a friend', category: 'Food & Drinks', amount: 150.00 },
-            { date: '2025-08-02', description: 'Monthly utility bill', category: 'Utilities', amount: 1200.00 },
-            { date: '2025-08-01', description: 'Weekly grocery shopping', category: 'Groceries', amount: 750.50 },
-            { date: '2025-07-31', description: 'Movie tickets', category: 'Entertainment', amount: 450.00 },
-            { date: '2025-07-30', description: 'Bus fare to work', category: 'Transportation', amount: 80.00 },
-            { date: '2025-07-29', description: 'Monthly gym subscription', category: 'Fitness', amount: 500.00 },
-            { date: '2025-07-28', description: 'Dinner with family', category: 'Food & Drinks', amount: 850.00 },
-            { date: '2025-07-27', description: 'New headphones from Amazon', category: 'Shopping', amount: 2500.00 }
         ];
 
-        // This function generates the table rows from the transactionHistory array
         function renderTransactions() {
             const transactionList = document.getElementById('transaction-list');
-            transactionList.innerHTML = ''; // Clear existing content
+            transactionList.innerHTML = ''; 
 
             transactionHistory.forEach(transaction => {
                 const newRow = document.createElement('tr');
@@ -220,10 +200,10 @@
             });
         }
 
-        // Call the function when the page loads to display the transactions
         window.onload = renderTransactions;
 
     </script>
 
 </body>
+
 </html>
