@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import './TransactionManager.css'; // Assuming you move the relevant CSS here
+import './TransactionManager.css'; 
 
-// A reusable currency formatter
 const rupeeFormatter = new Intl.NumberFormat('en-IN', {
     style: 'currency',
     currency: 'INR'
 });
 
-// A dummy in-memory store. In a real app, this would be a backend call.
 const getTransactionsFromStorage = () => {
     try {
         const savedData = localStorage.getItem('spendrAppData');
@@ -27,30 +25,24 @@ const saveTransactionsToStorage = (transactions) => {
 };
 
 const TransactionManager = () => {
-    // State to hold the list of all transactions
     const [transactions, setTransactions] = useState(getTransactionsFromStorage());
 
-    // State to hold the form data
     const [formData, setFormData] = useState({
         amount: '',
         description: '',
         category: 'Groceries',
         date: new Date().toISOString().slice(0, 10),
     });
-
-    // Handle input changes
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData(prevData => ({ ...prevData, [name]: value }));
     };
 
-    // Handle form submission
     const handleSubmit = (e) => {
         e.preventDefault();
 
         const newAmount = parseFloat(formData.amount);
         if (isNaN(newAmount) || newAmount <= 0) {
-            // Display an alert for invalid entry
             alert('Please enter a valid amount.');
             return;
         }
@@ -62,15 +54,10 @@ const TransactionManager = () => {
             amount: newAmount,
             type: 'expense'
         };
-
-        // Update the transactions state
         const updatedTransactions = [...transactions, newTransaction];
         setTransactions(updatedTransactions);
-        
-        // Save the updated transactions to localStorage
         saveTransactionsToStorage(updatedTransactions);
         
-        // Reset the form
         setFormData({
             amount: '',
             description: '',
@@ -78,11 +65,9 @@ const TransactionManager = () => {
             date: new Date().toISOString().slice(0, 10),
         });
 
-        // Display a success alert
         alert('Transaction added successfully!');
     };
 
-    // Get the 5 most recent transactions
     const recentTransactions = transactions.slice(-5).reverse();
 
     return (
@@ -178,5 +163,6 @@ const TransactionManager = () => {
         </div>
     );
 };
+
 
 export default TransactionManager;
