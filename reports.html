@@ -5,9 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Spendr - Reports</title>
     <style>
-        /* =========================================
-           Global Styles & Effects
-           ========================================= */
+
         :root {
             --primary-color: #4CAF50;
             --secondary-color: #388E3C;
@@ -44,9 +42,7 @@
             animation: fadeIn 0.8s ease-out forwards;
         }
 
-        /* =========================================
-           Header and Navigation
-           ========================================= */
+       
         .header {
             display: flex;
             justify-content: space-between;
@@ -80,9 +76,6 @@
             color: var(--accent-color);
         }
 
-        /* =========================================
-           Main Content and Reports Layout
-           ========================================= */
         .container {
             padding: 2rem;
             max-width: 1200px;
@@ -118,7 +111,6 @@
             padding-bottom: 0.5rem;
         }
         
-        /* Summary Card specifics */
         .summary-card {
             display: flex;
             justify-content: space-around;
@@ -149,7 +141,6 @@
             color: #D32F2F;
         }
         
-        /* Chart Placeholders */
         .chart-container {
             display: flex;
             gap: 2rem;
@@ -159,7 +150,6 @@
             flex: 1;
         }
         
-        /* Detailed Reports Table */
         .reports-table {
             width: 100%;
             border-collapse: collapse;
@@ -250,26 +240,12 @@
             currency: 'INR'
         });
 
-        // Sample data for reports
         const allTransactions = [
-            // Sample Income
-            { date: '2025-07-28', description: 'Salary', category: 'Income', amount: 50000.00 },
-            { date: '2025-08-10', description: 'Freelance work', category: 'Income', amount: 15000.00 },
-
-            // Sample Expenses
-            { date: '2025-08-15', description: 'Groceries shopping', category: 'Groceries', amount: 1200.00 },
-            { date: '2025-08-12', description: 'Restaurant dinner', category: 'Food & Drinks', amount: 800.00 },
-            { date: '2025-08-10', description: 'Utility bill', category: 'Utilities', amount: 900.00 },
-            { date: '2025-08-08', description: 'Fuel for car', category: 'Transportation', amount: 1500.00 },
-            { date: '2025-08-05', description: 'Movie tickets', category: 'Entertainment', amount: 600.00 },
-            { date: '2025-08-03', description: 'Coffee', category: 'Food & Drinks', amount: 150.00 },
-            { date: '2025-07-30', description: 'Weekly groceries', category: 'Groceries', amount: 750.00 },
-            { date: '2025-07-29', description: 'Internet bill', category: 'Utilities', amount: 1000.00 },
+           
+           
         ];
         
-        // =========================================
-        //  1. Generate Summary Card
-        // =========================================
+     
         function generateSummary() {
             const totalIncome = allTransactions
                 .filter(t => t.category === 'Income')
@@ -286,15 +262,13 @@
             document.getElementById('net-savings').textContent = rupeeFormatter.format(netSavings).slice(1);
         }
 
-        // =========================================
-        //  2. Generate Monthly Spending Overview (Bar Chart)
-        // =========================================
+     
         function generateMonthlySpendingChart() {
             const monthlySpending = {};
             const expenseTransactions = allTransactions.filter(t => t.category !== 'Income');
 
             expenseTransactions.forEach(t => {
-                const month = t.date.slice(0, 7); // 'YYYY-MM'
+                const month = t.date.slice(0, 7); 
                 monthlySpending[month] = (monthlySpending[month] || 0) + t.amount;
             });
 
@@ -309,7 +283,7 @@
                     datasets: [{
                         label: 'Total Expenses',
                         data: data,
-                        // FIX: Changed from var(--primary-color) to a hex code
+                        
                         backgroundColor: '#4CAF50',
                         borderColor: '#4CAF50',
                         borderWidth: 1
@@ -326,9 +300,6 @@
             });
         }
 
-        // =========================================
-        //  3. Generate Spending by Category (Pie Chart)
-        // =========================================
         function generateCategorySpendingChart() {
             const categorySpending = {};
             const expenseTransactions = allTransactions.filter(t => t.category !== 'Income');
@@ -340,7 +311,6 @@
             const labels = Object.keys(categorySpending);
             const data = Object.values(categorySpending);
             
-            // FIX: Defined an array of colors for the chart
             const backgroundColors = [
                 '#4CAF50', '#FFC107', '#2196F3', '#D32F2F', '#9C27B0', '#795548', '#FF9800'
             ];
@@ -370,9 +340,7 @@
             });
         }
 
-        // =========================================
-        //  4. Generate Detailed Category Report
-        // =========================================
+    
         function generateDetailedReport() {
             const categorySummary = {};
             const expenseTransactions = allTransactions.filter(t => t.category !== 'Income');
@@ -400,7 +368,6 @@
             }
         }
         
-        // Run all functions when the page loads
         window.onload = function() {
             generateSummary();
             generateMonthlySpendingChart();
@@ -410,4 +377,5 @@
     </script>
 
 </body>
+
 </html>
