@@ -5,9 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Spendr - Dashboard</title>
     <style>
-        /* =========================================
-           Global Styles & Effects
-           ========================================= */
+        
         :root {
             --primary-color: #4CAF50;
             --secondary-color: #388E3C;
@@ -44,9 +42,7 @@
             animation: fadeIn 0.8s ease-out forwards;
         }
 
-        /* =========================================
-           Header and Navigation
-           ========================================= */
+      
         .header {
             display: flex;
             justify-content: space-between;
@@ -80,9 +76,7 @@
             color: var(--accent-color);
         }
 
-        /* =========================================
-           Main Container and Cards
-           ========================================= */
+       
         .container {
             display: flex;
             flex-direction: column;
@@ -105,7 +99,6 @@
             box-shadow: 0 12px 25px rgba(0,0,0,0.12);
         }
         
-        /* New welcome card styles */
         .welcome-card {
             background: linear-gradient(135deg, #f0fdf4, #dcfce7);
             border: 1px solid #d1fae5;
@@ -134,7 +127,6 @@
             padding-bottom: 0.5rem;
         }
         
-        /* Layout for the two top cards */
         .quick-actions-container {
             display: flex;
             gap: 2rem;
@@ -146,14 +138,10 @@
             flex: 1;
         }
         
-        /* Layout for the transactions card below */
         .transactions-history {
             max-width: 1200px;
         }
 
-        /* =========================================
-           Goal Card and Progress Bar
-           ========================================= */
         .goal-status {
             font-size: 1.25rem;
             font-weight: bold;
@@ -179,10 +167,6 @@
             animation: fillProgress 1s ease-in-out forwards;
             --progress-width: 0%;
         }
-        
-        /* =========================================
-           Forms & Buttons
-           ========================================= */
         .form {
             display: flex;
             flex-direction: column;
@@ -229,9 +213,6 @@
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
         }
         
-        /* =========================================
-           Tables
-           ========================================= */
         .transactions-history table {
             width: 100%;
             border-collapse: collapse;
@@ -346,80 +327,9 @@
         </div>
     </main>
     
-    <script>
-        const rupeeFormatter = new Intl.NumberFormat('en-IN', {
-            style: 'currency',
-            currency: 'INR'
-        });
+   <script>TransactionManager.jsx</script>
 
-        const recentTransactions = [
-            { date: '2025-08-03', description: 'Coffee with a friend', category: 'Food & Drinks', amount: 150.00 },
-            { date: '2025-08-02', description: 'Monthly utility bill', category: 'Utilities', amount: 1200.00 },
-            { date: '2025-08-01', description: 'Weekly grocery shopping', category: 'Groceries', amount: 750.50 }
-        ];
-
-        function renderRecentTransactions() {
-            const transactionList = document.getElementById('transaction-list');
-            transactionList.innerHTML = '';
-
-            recentTransactions.forEach(transaction => {
-                const newRow = document.createElement('tr');
-                newRow.innerHTML = `
-                    <td>${transaction.date}</td>
-                    <td>${transaction.description}</td>
-                    <td>${transaction.category}</td>
-                    <td class="expense">- ${rupeeFormatter.format(transaction.amount)}</td>
-                `;
-                transactionList.appendChild(newRow);
-            });
-        }
-
-        window.onload = renderRecentTransactions;
-
-        // =========================================
-        // To-Do List JavaScript
-        // =========================================
-        const itemInput = document.getElementById('item-input');
-        const todoList = document.getElementById('todo-list');
-        const addButton = document.getElementById('add-btn');
-
-        function addItem() {
-            const itemText = itemInput.value.trim();
-
-            if (itemText === '') {
-                alert('Please enter some text');
-                return;
-            }
-
-            const li = document.createElement('li');
-            const span = document.createElement('span');
-            span.textContent = itemText;
-
-            const deleteBtn = document.createElement('button');
-            deleteBtn.textContent = 'Delete';
-            deleteBtn.className = 'delete-btn';
-
-            deleteBtn.addEventListener('click', function() {
-                todoList.removeChild(li);
-            });
-
-            li.appendChild(span);
-            li.appendChild(deleteBtn);
-
-            todoList.appendChild(li);
-
-            itemInput.value = '';
-            itemInput.focus();
-        }
-
-        addButton.addEventListener('click', addItem);
-
-        itemInput.addEventListener('keydown', function(event) {
-            if (event.key === 'Enter') {
-                addItem();
-            }
-        });
-    </script>
 
 </body>
 </html>
+
