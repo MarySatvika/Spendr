@@ -5,12 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Log In - Spendr</title>
     <style>
-      
+       
         :root {
             --primary-color: #4CAF50;
             --secondary-color: #388E3C;
-            --background-start: #f0f4f8;
-            --background-end: #d9e2e9; 
+            --background-start: #f0f4f8; 
+            --background-end: #d9e2e9;   
             --text-color: #333;
             --card-background: #ffffff;
             --box-shadow: 0 10px 20px rgba(0,0,0,0.1);
@@ -27,7 +27,7 @@
             background: linear-gradient(135deg, var(--background-start), var(--background-end));
         }
 
-        
+      
         .login-container {
             width: 100%;
             max-width: 400px;
@@ -50,7 +50,6 @@
             font-size: 2rem;
         }
 
-        
         .form-group {
             margin-bottom: 1.5rem;
         }
@@ -150,21 +149,21 @@
 
     <script>
         const loginForm = document.getElementById('login-form');
-        
-        loginForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            
-            const username = document.getElementById('username').value;
-            const password = document.getElementById('password').value;
 
-            if (username && password) {
-                alert('Login successful! Redirecting to dashboard...');
-            } else {
-                alert('Please enter your username and password.');
-            }
-        });
+loginForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    const username = document.getElementById('username').value;
+    const password = document.getElementById('password').value;
+
+    if (username && password) {
+        alert('Login successful! Redirecting to dashboard...');
+        window.location.href = 'dashboard.html';
+    } else {
+        alert('Please enter your username and password.');
+    }
+});
     </script>
 
 </body>
-
 </html>
