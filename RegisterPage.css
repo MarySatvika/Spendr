@@ -1,8 +1,3 @@
-/*
- * This CSS is taken directly from your register.html file
- * and converted for use in a React component.
- */
-
 :root {
     --primary-color: #4CAF50;
     --secondary-color: #388E3C;
@@ -119,4 +114,5 @@ body {
 .login-link a:hover {
     text-decoration: underline;
     color: var(--secondary-color);
+
 }
