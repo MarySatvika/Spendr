@@ -10,13 +10,7 @@ const app = express();
 // Security middleware
 app.use(helmet());
 app.use(cors(
-  {
-  origin: [
-    https://spendr-frontend.onrender.com', 
-    'http://localhost:5000' 
-  ],
-  credentials: true
-}
+ 
 ));
 app.use(express.json());
 
