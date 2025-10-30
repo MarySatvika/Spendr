@@ -6,7 +6,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'https://spendr-96g4.onrender.com',
+        target: 'https://spendr-backend-041o.onrender.com',
         changeOrigin: true
       }
     }
